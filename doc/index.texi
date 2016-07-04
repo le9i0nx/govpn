@@ -31,6 +31,7 @@ A copy of the license is included in the section entitled "Copying conditions".
 * Информация на русском: Русский.
 * Installation::
 * Precautions::
+* Modes of operation::
 * User manual: User.
 * Developer manual: Developer.
 * Contacts and feedback: Contacts.
@@ -44,6 +45,7 @@ A copy of the license is included in the section entitled "Copying conditions".
 @include russian.texi
 @include installation.texi
 @include precautions.texi
+@include modes.texi
 @include user.texi
 @include developer.texi
 @include contacts.texi

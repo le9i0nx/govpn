@@ -1,0 +1,50 @@
+@node Modes of operation
+@unnumbered Modes of operation
+
+There are three modes of operation. They provide various tradeoff
+between resource-consumption and effectiveness.
+
+@table @asis
+
+@item Default mode.
+
+Data packets are encrypted and authenticated and sent immediately. This
+is the most effective mode with minimal overhead and delays.
+@verbatim
+         +-----------+   +-----+         +---------+    +------+
+         |  DATA     |   |DATA |         |  DATA   |    | DATA |
+         +-----------+   +-----+         +---------+    +------+
+
+---------------------------------------------------------------------------------------> t
+@end verbatim
+
+@item @ref{Noise} mode.
+
+This mode hides packet's lengths. It consumes more traffic as a rule.
+@verbatim
+ +------const------+        +------const------+    +------const------+
+/                   \      /                   \  /                   \
+
++------+------------+      +---------+---------+  +-------------+-----+
+| DATA | NOISE      |      | DATA    | NOISE   |  | DATA        |NOISE|
++------+------------+      +---------+---------+  +-------------+-----+
+
+---------------------------------------------------------------------------------------> t
+@end verbatim
+
+@item @ref{CPR} mode.
+
+This mode also hides packets timestamps. It can increase delays and
+insert dummy noised packets.
+@verbatim
+ +------const------+             +------const------+             +------const------+
+/                   \           /                   \           /                   \
+
++------+------------+           +---------+---------+           +-------------------+
+| DATA | NOISE      |<--const-->| DATA    | NOISE   |<--const-->|       NOISE       |
++------+------------+           +---------+---------+           +-------------------+
+
+---------------------------------------------------------------------------------------> t
+@end verbatim
+
+@end table
