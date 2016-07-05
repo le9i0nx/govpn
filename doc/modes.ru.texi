@@ -1,15 +1,17 @@
-@node Modes of operation
-@unnumbered Modes of operation
+@node Режимы работы
+@section Режимы работы
 
-There are three modes of operation. They provide various tradeoff
-between resource-consumption and effectiveness.
+Есть три режима работы. Они предоставляют компромиссы между потреблением
+ресурсов и эффективностью.
 
 @table @asis
 
-@item Default mode.
+@item Режим по-умолчанию.
 
-Data packets are encrypted and authenticated and sent immediately. This
-is the most effective mode with minimal overhead and delays.
+Пакеты с данными зашифрованы и аутентифицированы и посылаются сразу же.
+Это наиболее эффективный режим с минимальными накладными расходами и
+задержками.
+
 @verbatim
          +-----------+   +-----+         +---------+    +------+
          |  DATA     |   |DATA |         |  DATA   |    | DATA |
@@ -18,9 +20,10 @@ is the most effective mode with minimal overhead and delays.
 ---------------------------------------------------------------------------------------> t
 @end verbatim
 
-@item @ref{Noise} mode.
+@item @ref{Noise, Шумовой} режим.
 
-This mode hides packet's lengths. It consumes more traffic as a rule.
+Этот режим прячет длины пакетов. Как правило, он потребляет больше
+трафика.
 
 @verbatim
  +------const------+        +------const------+    +------const------+
@@ -33,10 +36,10 @@ This mode hides packet's lengths. It consumes more traffic as a rule.
 ---------------------------------------------------------------------------------------> t
 @end verbatim
 
-@item @ref{CPR} mode.
+@item Режим постоянной @ref{CPR, скорости пакетов}.
 
-This mode also hides packets timestamps. It can increase delays and
-insert dummy noised packets.
+Этот режим ещё и прячет временные характеристики пакетов. Он может
+увеличить задержки и вставлять пустые шумовые пакеты.
 
 @verbatim
  +------const------+             +------const------+             +------const------+
