@@ -1,8 +1,11 @@
 @node Modes of operation
 @unnumbered Modes of operation
 
-There are three modes of operation. They provide various tradeoff
-between resource-consumption and effectiveness.
+There are three modes of operation and two modes of data confidentiality
+protection.
+
+Three modes of operation provide various trade-off between
+resource-consumption and effectiveness.
 
 @table @asis
 
@@ -10,6 +13,7 @@ between resource-consumption and effectiveness.
 
 Data packets are encrypted and authenticated and sent immediately. This
 is the most effective mode with minimal overhead and delays.
+
 @verbatim
          +-----------+   +-----+         +---------+    +------+
          |  DATA     |   |DATA |         |  DATA   |    | DATA |
@@ -47,6 +51,60 @@ insert dummy noised packets.
 +------+------------+           +---------+---------+           +-------------------+
 
 ---------------------------------------------------------------------------------------> t
+@end verbatim
+
+@end table
+
+Confidentiality protection modes are also trade-off between
+effectiveness and resource-consumption.
+
+@table @asis
+
+@item @ref{Transport, Default} mode.
+
+Encryption and authentication is done using well-known algorithms. This
+is very effective mode. It generates packets undistinguishable from the
+noise.
+
+@verbatim
++---------------------------------------------------------+
+|                       PACKET                            |
+|                                                         |
+|  +-----+ +---------------------------+   +-------+      |
+|  | TAG |/         CIPHERTEXT          \ /  NONCE  \     |
+|  +-----+|-----------------------------||-----------|    |
+|         |                             ||           |    |
++---------------------------------------------------------+
+          |                             ||           |
+          |-----------------------------||-----------|
+          |          ENCRYPTION         ||    MAC    |
+          +------------+---+------------++-----------+
+          |    DATA    |PAD|    ZEROS   ||  SERIAL   |
+          +------------+---+------------++-----------+
+@end verbatim
+
+@item @ref{Encless, Encryptionless} mode.
+
+This mode does not use any encryption function. Chaffing-and-Winnowing
+encoding is used over AONT (all-or-nothing) package instead. This mode
+consumes much more traffic and resources. It also generated
+undistinguishable from the noise packets.
+
+@verbatim
++----------------------------------------------------+
+|                  PACKET                            |
+|                                                    |
+|     +---------------------------+  +---------+     |
+|    /         CIPHERTEXT          \/   NONCE   \    |
+|    |-----------------------------||-----------|    |
+|    |                             ||           |    |
++----------------------------------------------------+
+     |                             ||           |
+     |--------+--------------------||-----------|
+     |Chaffing|        AONT        ||    MAC    |
+     +--------+---+---+------------++-----------+
+     |    DATA    |PAD|    ZEROS   ||  SERIAL   |
+     +------------+---+------------++-----------+
 @end verbatim
 
 @end table
